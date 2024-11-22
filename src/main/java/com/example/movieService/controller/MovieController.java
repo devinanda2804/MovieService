@@ -36,10 +36,16 @@ public class MovieController {
         return ResponseEntity.ok(movies);
     }
 
-    @PutMapping("/{id}/showtimes")
-    public ResponseEntity<Movie> updateShowtimes(@PathVariable int id, @RequestBody List<LocalDateTime> showtimes) {
-        Movie updatedMovie = movieService.updateShowtimes(id, showtimes);
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable int id, @RequestBody Movie movieDetails) {
+        Movie updatedMovie = movieService.updateMovie(id, movieDetails);
         return ResponseEntity.ok(updatedMovie);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMovie(@PathVariable int id){
+        movieService.deleteMovie(id);
+        return ResponseEntity.ok("Deletion successfull");
     }
 
     @GetMapping("/{movieId}/exists")

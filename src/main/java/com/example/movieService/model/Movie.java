@@ -30,8 +30,8 @@ public class Movie {
     @Column(nullable = false)
     private int duration;
 
-    @ElementCollection
+    /*@ElementCollection
     @CollectionTable(name = "movie_showtimes", joinColumns = @JoinColumn(name = "movie_id"))
     @Column(name = "showtime")
-    private List<LocalDateTime> showtimes;
+    private List<LocalDateTime> showtimes;*/
 }
