@@ -5,6 +5,7 @@ import com.example.movieService.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
         Movie savedMovie = movieService.addMovie(movie);

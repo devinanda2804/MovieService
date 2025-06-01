@@ -21,11 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/user/login", "/api/user/register").permitAll()
+
                 .antMatchers("/api/movies/**", "/api/showtimes/**").authenticated()
+
+                .antMatchers("/api/user/login", "/api/user/register").permitAll()
+
                 .anyRequest().permitAll()
                 .and()
-                .cors()  // Explicitly enable CORS
+                .cors()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
@@ -37,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000") // Your frontend URL
+                        .allowedOrigins("http://localhost:3002","http://localhost:8081")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

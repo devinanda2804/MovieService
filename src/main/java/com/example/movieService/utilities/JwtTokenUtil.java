@@ -11,21 +11,8 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     private String secretKey = "secret";
-    private long validityInMilliseconds = 86400000;
+    private long validityInMilliseconds = 3600000;
 
-
-    public String generateToken(String username) {
-        Claims claims = Jwts.claims().setSubject(username);
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
-    }
 
     public String getUsername(String token) {
         return Jwts.parser()
